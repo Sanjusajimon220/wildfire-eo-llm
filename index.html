@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Four-fifths of the Tenerife fire burned inside protected land — Ground_truth</title>
+<meta name="description" content="In August 2023 a fire above Arafo burned for eight days across north-east Tenerife. Measured from orbit: 10,628 of 13,470 hectares fell inside protected boundaries.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ash:#eceae4;          /* pale pumice — page ground */
+  --ash-2:#e2dfd7;        /* panel ground */
+  --basalt:#17191c;       /* volcanic dark — text */
+  --slate:#6c7178;        /* muted */
+  --laurel:#3f6350;       /* laurel forest — the unburned state */
+  --ember:#c8431c;        /* burn accent */
+  --sulphur:#e0a32e;      /* high severity */
+  --rule:#cdc8bd;
+
+  --display:"Instrument Serif",Georgia,serif;
+  --body:"Newsreader",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+
+  --col:660px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ash);color:var(--basalt);
+  font-family:var(--body);font-size:19px;line-height:1.62;font-weight:380;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--sulphur);color:var(--basalt)}
+a{color:var(--ember);text-underline-offset:3px;text-decoration-thickness:1px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--basalt);outline-offset:3px}
+
+.wrap{max-width:var(--col);margin:0 auto;padding:0 22px}
+.bleed{max-width:1180px;margin:0 auto;padding:0 22px}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--rule)}
+.mast .bleed{display:flex;align-items:baseline;justify-content:space-between;
+  padding-top:18px;padding-bottom:18px;gap:16px}
+.brand{font-family:var(--display);font-size:22px;letter-spacing:-.01em}
+.brand span{color:var(--ember)}
+.mast nav{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+.mast nav a{color:var(--slate);text-decoration:none;margin-left:18px}
+.mast nav a:hover{color:var(--basalt)}
+
+/* ---------- hero ---------- */
+.hero{padding:64px 0 0}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ember);margin:0 0 22px;display:flex;gap:14px;align-items:center}
+.eyebrow s{flex:1;height:1px;background:var(--rule);border:0;display:block}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(38px,6.4vw,64px);
+  line-height:1.02;letter-spacing:-.018em;margin:0 0 22px}
+.stand{font-size:21px;line-height:1.55;color:#33383e;margin:0 0 30px}
+.stand b{font-weight:500;color:var(--basalt)}
+.byline{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--slate);
+  border-top:1px solid var(--rule);padding-top:14px;display:flex;flex-wrap:wrap;gap:6px 20px}
+
+/* ---------- signature: observation ledger ---------- */
+.ledger{margin:52px 0 0;padding:26px 0 0;border-top:1px solid var(--rule)}
+.ledger-h{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:20px}
+.ledger-h h2{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--slate);margin:0;font-weight:600}
+.ledger-h p{margin:0;font-size:14px;color:var(--slate);max-width:44ch;text-align:right}
+.strip{position:relative;height:132px}
+.strip svg{width:100%;height:100%;overflow:visible;display:block}
+.tick{cursor:default}
+.tick rect{fill:var(--ember);transition:fill .15s}
+.tick:hover rect,.tick:focus rect{fill:var(--basalt)}
+.axis{fill:none;stroke:var(--rule);stroke-width:1}
+.daylab{font-family:var(--mono);font-size:9.5px;fill:var(--slate);letter-spacing:.06em}
+.gapmark{fill:none;stroke:var(--laurel);stroke-width:1;stroke-dasharray:2 3}
+.gaplab{font-family:var(--mono);font-size:9px;fill:var(--laurel);letter-spacing:.08em}
+#tipbox{position:absolute;pointer-events:none;opacity:0;transition:opacity .12s;
+  background:var(--basalt);color:var(--ash);font-family:var(--mono);font-size:10.5px;
+  padding:6px 9px;border-radius:3px;white-space:nowrap;transform:translate(-50%,-135%);z-index:5}
+
+/* ---------- body copy ---------- */
+section{padding:56px 0}
+h2.sec{font-family:var(--display);font-weight:400;font-size:clamp(27px,4vw,36px);
+  line-height:1.12;letter-spacing:-.012em;margin:0 0 20px}
+h3{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--slate);font-weight:600;margin:0 0 12px}
+p{margin:0 0 20px}
+.lead::first-letter{font-family:var(--display);font-size:3.1em;line-height:.82;float:left;
+  padding:6px 10px 0 0;color:var(--ember)}
+blockquote{margin:34px 0;padding-left:20px;border-left:2px solid var(--ember);
+  font-family:var(--display);font-size:25px;line-height:1.28;color:#2a2e33}
+
+/* ---------- instrument panels ---------- */
+.panel{background:var(--ash-2);border:1px solid var(--rule);border-radius:2px;padding:22px}
+.panel h3{margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13px}
+th{text-align:left;font-weight:500;color:var(--slate);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;padding:0 0 9px;border-bottom:1px solid var(--rule)}
+td{padding:9px 0;border-bottom:1px solid rgba(205,200,189,.55)}
+tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:8px;vertical-align:baseline}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* proportional bar */
+.bar{display:flex;height:30px;border-radius:2px;overflow:hidden;margin:4px 0 10px}
+.bar div{height:100%}
+.barkey{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:10.5px;color:var(--slate)}
+
+/* validation */
+.valrow{display:flex;justify-content:space-between;font-family:var(--mono);font-size:13px;
+  padding:10px 0;border-bottom:1px solid rgba(205,200,189,.55)}
+.valrow:last-child{border-bottom:0;color:var(--laurel);font-weight:500}
+.valrow b{font-variant-numeric:tabular-nums}
+
+/* ---------- map ---------- */
+.mapwrap{margin:8px 0 0}
+.mapframe{position:relative;width:100%;aspect-ratio:16/10;min-height:420px;
+  border:1px solid var(--rule);border-radius:2px;overflow:hidden;background:var(--ash-2)}
+.mapframe iframe{width:100%;height:100%;border:0;display:block}
+.cap{font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--slate);
+  margin-top:12px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+
+/* ---------- limitations ---------- */
+ul.plain{list-style:none;margin:0;padding:0}
+ul.plain li{padding:14px 0 14px 26px;border-bottom:1px solid var(--rule);position:relative;
+  font-size:17.5px;line-height:1.55}
+ul.plain li:last-child{border-bottom:0}
+ul.plain li::before{content:"";position:absolute;left:0;top:23px;width:11px;height:1px;background:var(--ember)}
+
+/* ---------- series ---------- */
+.series{border-top:1px solid var(--rule)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule)}
+.card{background:var(--ash);padding:20px;display:flex;flex-direction:column;gap:8px;min-height:172px}
+.card .yr{font-family:var(--display);font-size:34px;line-height:1}
+.card .nm{font-size:16px;line-height:1.3;font-weight:500}
+.card .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;margin-top:auto}
+.card.live{background:var(--basalt);color:var(--ash)}
+.card.live .st{color:var(--sulphur)}
+.card.next .st{color:var(--laurel)}
+.card.gap{background:repeating-linear-gradient(135deg,var(--ash),var(--ash) 7px,var(--ash-2) 7px,var(--ash-2) 14px)}
+.card.gap .st{color:var(--slate)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--rule);padding:44px 0 70px;font-size:15px;color:var(--slate)}
+footer .bleed{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:28px}
+footer h3{margin-bottom:10px}
+footer p{margin:0 0 8px;font-size:14.5px;line-height:1.6}
+footer a{color:var(--basalt)}
+
+@media (max-width:720px){
+  body{font-size:18px}
+  .hero{padding-top:40px}
+  section{padding:42px 0}
+  .grid2{grid-template-columns:1fr}
+  .ledger-h{flex-direction:column}
+  .ledger-h p{text-align:left}
+  .strip{height:112px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="bleed">
+    <div class="brand">Ground<span>_</span>truth</div>
+    <nav>
+      <a href="../">Investigations</a>
+      <a href="#method">Method</a>
+      <a href="https://github.com/Sanjusajimon220/wildfire-eo-llm">Code</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <p class="eyebrow">Investigation · Wildfire · 01<s></s>Tenerife 2023</p>
+
+  <h1>Four-fifths of the Tenerife fire burned inside protected land</h1>
+
+  <p class="stand">In August 2023 a fire above Arafo burned for eight days across north-east
+  Tenerife. Measured from orbit, <b>10,628 of the 13,470 hectares</b> it covered lay within
+  protected boundaries — among them El Teide and Corona Forestal.</p>
+
+  <div class="byline">
+    <span>Sanju Sajimon</span>
+    <span>Sentinel-2 · Sentinel-1 · VIIRS</span>
+    <span>Open data only</span>
+  </div>
+
+  <!-- ============ SIGNATURE: observation ledger ============ -->
+  <div class="ledger">
+    <div class="ledger-h">
+      <h2>What the satellite saw, and when</h2>
+      <p>Eighteen overpasses in eight days. Bar height is the number of active-fire
+      detections recorded on that pass. The spaces between are hours nobody was watching.</p>
+    </div>
+    <div class="strip">
+      <svg id="strip" viewBox="0 0 900 132" preserveAspectRatio="none" role="img"
+           aria-label="Eighteen satellite overpasses between 16 and 23 August 2023, showing detection counts and the gaps between observations."></svg>
+      <div id="tipbox"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STORY ============ -->
+<div class="wrap">
+<section>
+  <p class="lead">The fire was first seen from space at 02:23 UTC on 16 August 2023, as a
+  single warm pixel on the slope above Arafo. Over the following week the VIIRS instrument
+  passed overhead eighteen times and logged 1,026 detections in all, the last on 23 August.
+  By then the front had travelled just under fifteen kilometres north-west, into the pine
+  forest that covers the spine of the island.</p>
+
+  <p>Those detections are not a map of the fire. They are a record of moments when a
+  satellite happened to be overhead and the ground below was hot enough to register at
+  375-metre resolution. To find out what the fire actually did to the land, you have to
+  wait for the smoke to clear and look again in visible and infrared light.</p>
+
+  <p>That second look is what this piece measures. Comparing Sentinel-2 imagery from before
+  the fire with imagery from after it, the burned area comes to 13,470 hectares. Of that,
+  10,628 hectares — 78.9 per cent — falls inside the boundaries of protected areas.</p>
+
+  <blockquote>The fire did not stray onto protected land. Protected land is
+  where almost all of it burned.</blockquote>
+</section>
+
+<!-- ============ MAP ============ -->
+</div>
+<div class="bleed">
+  <section>
+    <h3>Explore the fire</h3>
+    <h2 class="sec">Eight days, from the first pixel to the last</h2>
+    <div class="mapwrap">
+      <div class="mapframe">
+        <iframe src="fire_spread_tenerife_2023.html" title="Interactive map of the Tenerife 2023 fire spread"
+                loading="lazy"></iframe>
+      </div>
+      <div class="cap">
+        <span>Press play to watch the detections accumulate. Switch layers to compare the
+        Sentinel-2 imagery before and after the fire.</span>
+        <span><a href="fire_spread_tenerife_2023.html" target="_blank" rel="noopener">Open full screen ↗</a></span>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="wrap">
+
+<!-- ============ WHAT BURNED ============ -->
+<section>
+  <h3>What burned</h3>
+  <h2 class="sec">Mostly forest, and mostly not severely</h2>
+
+  <p>Burn severity is estimated from the difference in the Normalized Burn Ratio between the
+  two dates — how much the vegetation's reflectance changed. Two-thirds of the burned area
+  falls in the two lower severity classes. High severity, where the canopy was consumed
+  rather than scorched, accounts for 1,823 hectares.</p>
+
+  <div class="panel">
+    <h3>Severity, in hectares</h3>
+    <div class="bar" role="img" aria-label="Severity split: low 36.1%, moderate-low 30.0%, moderate-high 20.3%, high 13.5%.">
+      <div style="width:36.1%;background:#efd9a0"></div>
+      <div style="width:30.0%;background:#e0a32e"></div>
+      <div style="width:20.3%;background:#d4652a"></div>
+      <div style="width:13.5%;background:#8f2410"></div>
+    </div>
+    <div class="barkey">
+      <span><i class="sw" style="background:#efd9a0"></i>Low · 4,863 ha · 36.1%</span>
+      <span><i class="sw" style="background:#e0a32e"></i>Moderate-low · 4,047 ha · 30.0%</span>
+      <span><i class="sw" style="background:#d4652a"></i>Moderate-high · 2,738 ha · 20.3%</span>
+      <span><i class="sw" style="background:#8f2410"></i>High · 1,823 ha · 13.5%</span>
+    </div>
+  </div>
+
+  <p style="margin-top:26px">By land cover, the burn was overwhelmingly wooded. Tree cover
+  accounts for 8,543 hectares, close to two-thirds of the total. Built-up land inside the
+  burned area comes to 182 hectares — a figure that describes what the fire's footprint
+  overlapped, not what was damaged.</p>
+
+  <div class="panel">
+    <h3>Land cover inside the burned area</h3>
+    <table>
+      <thead><tr><th>Cover type</th><th style="text-align:right">Hectares</th><th style="text-align:right">Share</th></tr></thead>
+      <tbody>
+        <tr><td>Tree cover</td><td class="num">8,543</td><td class="num">63.4%</td></tr>
+        <tr><td>Grassland</td><td class="num">2,433</td><td class="num">18.1%</td></tr>
+        <tr><td>Shrubland</td><td class="num">2,197</td><td class="num">16.3%</td></tr>
+        <tr><td>Built-up</td><td class="num">182</td><td class="num">1.4%</td></tr>
+        <tr><td>Cropland</td><td class="num">72</td><td class="num">0.5%</td></tr>
+        <tr><td>Bare / sparse</td><td class="num">44</td><td class="num">0.3%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ PROTECTED LAND ============ -->
+<section>
+  <h3>Protected land</h3>
+  <h2 class="sec">Ten designated areas fall inside the burn</h2>
+
+  <p>Overlaying the burned area on the World Database on Protected Areas, which includes the
+  EU's Natura 2000 network, gives 10,628 hectares inside protected boundaries. Ten designated
+  areas intersect the burn: El Teide, Corona Forestal, Las Lagunetas, Barranco de Fasnia y
+  Güímar, Montaña de los Frailes, Siete Lomas, La Resbala, Campeches, Tigaiga y Ruiz, Costa
+  de Acentejo and Rambla de Castro.</p>
+
+  <p>One word matters here. This figure is <b>exposure</b> — burned ground that sits inside a
+  protected boundary. It is a geometric overlap between two maps. It says nothing about
+  ecological loss, about which habitats will recover, or about how quickly. Establishing that
+  takes fieldwork, and fieldwork is not what a satellite does.</p>
+</section>
+
+<!-- ============ METHOD ============ -->
+<section id="method">
+  <h3>How we measured this</h3>
+  <h2 class="sec">And how the number checks out</h2>
+
+  <p>Burn severity comes from Sentinel-2 optical imagery: a cloud-masked composite of six
+  scenes from 10 July to 13 August, compared with five scenes from 12 September to 5 October,
+  once the smoke had gone. The difference in the Normalized Burn Ratio is classified using the
+  standard USGS thresholds, with a relativised burn ratio reported alongside it. Land cover
+  comes from ESA WorldCover, protected boundaries from the WDPA, and the timeline from NASA
+  FIRMS. Every dataset is open.</p>
+
+  <p>The area figure can be checked. Copernicus Emergency Management Service activated rapid
+  mapping for this fire and published its own delineation.</p>
+
+  <div class="panel">
+    <h3>Validation</h3>
+    <div class="valrow"><span>This analysis · Sentinel-2 dNBR</span><b>13,470 ha</b></div>
+    <div class="valrow"><span>Copernicus EMS · EMSR685</span><b>12,273 ha</b></div>
+    <div class="valrow"><span>Difference</span><b>+9.8%</b></div>
+  </div>
+
+  <p style="margin-top:26px">The gap is expected and runs in the direction you would predict.
+  A spectral index picks up lightly scorched ground at the edges that a
+  very-high-resolution delineation draws outside the line. Agreement within ten per cent of
+  the official product is what gives the rest of these numbers their footing.</p>
+
+  <p>A Sentinel-1 radar cross-check was also run, on the reasoning that radar sees through
+  smoke where optical sensors cannot. Over this terrain the backscatter change across the
+  scar fell below the threshold set for confirmation, so the check is recorded as
+  inconclusive rather than quietly dropped.</p>
+</section>
+
+<!-- ============ LIMITATIONS ============ -->
+<section>
+  <h3>The gaps</h3>
+  <h2 class="sec">What this cannot tell you</h2>
+  <ul class="plain">
+    <li>The differenced Normalized Burn Ratio estimates severity from reflectance. It is not a
+    field survey and not a legal perimeter.</li>
+    <li>A single post-fire composite was used. Low-severity edges make the mapped area larger
+    than a very-high-resolution delineation would.</li>
+    <li>Trade-wind cloud leaves holes in the imagery over Tenerife's northern slopes. Masked
+    pixels are shown as absent, never filled in with an estimate.</li>
+    <li>The Sentinel-1 cross-check is qualitative confirmation only, and here it was
+    inconclusive. It is not a second measurement of area.</li>
+    <li>FIRMS detections are roughly 375 metres across. The ignition point is the first pixel
+    the satellite detected, not the exact place the fire started.</li>
+    <li>The protected-area figure is exposure, not ecological damage. Nothing here counts
+    casualties, evacuations, or buildings lost, because none of that was measured.</li>
+  </ul>
+</section>
+</div>
+
+<!-- ============ SERIES ============ -->
+<div class="bleed series">
+  <section>
+    <h3>The series</h3>
+    <h2 class="sec">Spain's largest fires keep reaching its most protected ground</h2>
+    <p style="max-width:var(--col);margin-bottom:28px">Tenerife is the first fire measured with
+    this method. Three more follow, each run through the identical pipeline so the numbers can
+    be compared rather than merely listed.</p>
+
+    <div class="cards">
+      <div class="card live">
+        <div class="yr">2023</div>
+        <div class="nm">Tenerife · Arafo-Candelaria</div>
+        <div class="st">Published — 78.9% protected</div>
+      </div>
+      <div class="card next">
+        <div class="yr">2022</div>
+        <div class="nm">Sierra de la Culebra, Zamora</div>
+        <div class="st">Next — biosphere reserve</div>
+      </div>
+      <div class="card next">
+        <div class="yr">2026</div>
+        <div class="nm">La Mierla, Guadalajara</div>
+        <div class="st">Awaiting clear imagery</div>
+      </div>
+      <div class="card gap">
+        <div class="yr">2012</div>
+        <div class="nm">Cortes de Pallás, Valencia</div>
+        <div class="st">Where the archive runs out</div>
+      </div>
+    </div>
+
+    <p style="max-width:var(--col);margin-top:26px;font-size:16.5px;color:var(--slate)">
+    The 2012 fires sit in a hole in the open record: Sentinel-2 did not exist, Landsat 5 had
+    stopped acquiring, and Landsat 7 was returning striped imagery. Some events cannot be
+    measured this way, and saying so is part of the method.</p>
+  </section>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="bleed">
+    <div>
+      <h3>Data</h3>
+      <p>Sentinel-1 &amp; Sentinel-2 — Copernicus / ESA</p>
+      <p>Active fire — NASA FIRMS, VIIRS S-NPP</p>
+      <p>Land cover — ESA WorldCover v200</p>
+      <p>Protected areas — WDPA / UNEP-WCMC</p>
+      <p>Validation — Copernicus EMS EMSR685</p>
+    </div>
+    <div>
+      <h3>Reproduce it</h3>
+      <p>The notebook, the measurements and the article generator are public. Everything here
+      can be re-run from open data.</p>
+      <p><a href="https://github.com/Sanjusajimon220/wildfire-eo-llm">View the code ↗</a></p>
+    </div>
+    <div>
+      <h3>On the writing</h3>
+      <p>A language model produced the first draft from the measurements alone — it never saw
+      an image and computed nothing. An automated check then confirms that every figure in
+      this piece traces back to the measured data, and rejects the draft if one does not.
+      The text was edited and is published by a human.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---- observation ledger: real overpasses, real counts ---- */
+var OVERPASS=[["2023-08-16T02:23",67],["2023-08-16T13:39",63],["2023-08-17T02:04",108],
+["2023-08-17T03:45",108],["2023-08-17T13:20",14],["2023-08-17T13:21",39],
+["2023-08-17T15:01",62],["2023-08-18T03:26",108],["2023-08-18T14:42",41],
+["2023-08-19T03:07",203],["2023-08-19T14:23",104],["2023-08-20T02:48",11],
+["2023-08-20T14:04",3],["2023-08-21T02:29",50],["2023-08-21T13:45",22],
+["2023-08-22T02:10",16],["2023-08-22T13:27",3],["2023-08-23T03:32",4]];
+
+(function(){
+  var svg=document.getElementById('strip'), tip=document.getElementById('tipbox');
+  if(!svg) return;
+  var W=900,H=132,BASE=104,PAD=8;
+  var ts=OVERPASS.map(function(o){return Date.parse(o[0]+':00Z');});
+  var t0=Date.UTC(2023,7,16,0,0), t1=Date.UTC(2023,7,23,12,0);
+  var maxN=Math.max.apply(null,OVERPASS.map(function(o){return o[1];}));
+  var x=function(t){return PAD+(t-t0)/(t1-t0)*(W-PAD*2);};
+  var ns='http://www.w3.org/2000/svg';
+  function el(n,a){var e=document.createElementNS(ns,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+
+  /* baseline */
+  svg.appendChild(el('line',{x1:0,y1:BASE+.5,x2:W,y2:BASE+.5,class:'axis'}));
+
+  /* day labels */
+  for(var d=16; d<=23; d++){
+    var tx=x(Date.UTC(2023,7,d,0,0));
+    svg.appendChild(el('line',{x1:tx,y1:BASE,x2:tx,y2:BASE+6,class:'axis'}));
+    var lb=el('text',{x:tx+4,y:BASE+18,class:'daylab'});
+    lb.textContent=(d===16?'16 AUG':String(d));
+    svg.appendChild(lb);
+  }
+
+  /* the largest observation gap, marked */
+  var gi=0,gmax=0;
+  for(var i=1;i<ts.length;i++){ if(ts[i]-ts[i-1]>gmax){gmax=ts[i]-ts[i-1];gi=i;} }
+  var gx1=x(ts[gi-1]), gx2=x(ts[gi]);
+  svg.appendChild(el('line',{x1:gx1,y1:BASE-46,x2:gx2,y2:BASE-46,class:'gapmark'}));
+  var gl=el('text',{x:(gx1+gx2)/2,y:BASE-52,class:'gaplab','text-anchor':'middle'});
+  gl.textContent=Math.round(gmax/36e5)+' H UNOBSERVED';
+  svg.appendChild(gl);
+
+  /* ticks */
+  OVERPASS.forEach(function(o,i){
+    var h=10+(o[1]/maxN)*76, tx=x(ts[i]);
+    var g=el('g',{class:'tick',tabindex:'0',role:'listitem'});
+    g.appendChild(el('rect',{x:tx-2.5,y:BASE-h,width:5,height:h,rx:1}));
+    var dt=new Date(ts[i]);
+    var lab=('0'+dt.getUTCDate()).slice(-2)+' Aug · '
+           +('0'+dt.getUTCHours()).slice(-2)+':'+('0'+dt.getUTCMinutes()).slice(-2)+' UTC · '
+           +o[1]+' detections';
+    g.appendChild(el('title')).textContent=lab;
+    function show(){
+      var box=svg.getBoundingClientRect();
+      tip.textContent=lab;
+      tip.style.left=(tx/W*box.width)+'px';
+      tip.style.top=(BASE-h)/H*box.height+'px';
+      tip.style.opacity=1;
+    }
+    function hide(){tip.style.opacity=0;}
+    g.addEventListener('mouseenter',show); g.addEventListener('mouseleave',hide);
+    g.addEventListener('focus',show); g.addEventListener('blur',hide);
+    svg.appendChild(g);
+  });
+})();
+</script>
+</body>
+</html>
