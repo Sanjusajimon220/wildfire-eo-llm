@@ -1,0 +1,92 @@
+{
+  "fire_id": "tenerife_2023",
+  "fire_name": "Tenerife (Arafo-Candelaria)",
+  "region": "Canary Islands, Spain",
+  "year": 2023,
+  "ignition_date": "2023-08-15",
+  "containment_date": "2023-09-11",
+  "sensors": "Sentinel-2 (severity), Sentinel-1 (cross-check), VIIRS/MODIS FIRMS (timeline)",
+  "method": "dNBR (USGS/Key-Benson) + RBR (Parks et al. 2014); S1 VH change; FIRMS ignition+path",
+  "pre_fire_window": [
+    "2023-07-10",
+    "2023-08-13"
+  ],
+  "post_fire_window": [
+    "2023-09-12",
+    "2023-10-05"
+  ],
+  "dnbr_offset_applied": -0.0109,
+  "total_burned_ha": 13470.5,
+  "severity_ha": {
+    "low": 4862.9,
+    "moderate_low": 4047.4,
+    "moderate_high": 2737.6,
+    "high": 1822.6
+  },
+  "severity_pct": {
+    "low": 36.1,
+    "moderate_low": 30.0,
+    "moderate_high": 20.3,
+    "high": 13.5
+  },
+  "pct_high_severity": 13.5,
+  "mean_rbr": 0.2948,
+  "landcover_burned_ha": {
+    "tree_cover": 8542.6,
+    "shrubland": 2197.3,
+    "grassland": 2432.8,
+    "cropland": 71.5,
+    "built_up": 182.2,
+    "bare_sparse": 44.2
+  },
+  "landcover_burned_pct": {
+    "tree_cover": 63.4,
+    "shrubland": 16.3,
+    "grassland": 18.1,
+    "cropland": 0.5,
+    "built_up": 1.4,
+    "bare_sparse": 0.3
+  },
+  "protected_area_burned_ha": 10628.0,
+  "protected_share_pct": 78.9,
+  "protected_areas": [
+    "El Teide",
+    "Montaña de los Frailes",
+    "Barranco de Fasnia y Güímar",
+    "Las Lagunetas",
+    "Siete Lomas",
+    "La Resbala",
+    "Campeches, Tigaiga y Ruiz",
+    "Costa de Acentejo",
+    "Rambla de Castro",
+    "Corona Forestal"
+  ],
+  "official_reference": {
+    "source": "Copernicus EMS EMSR685",
+    "area_ha": 12273,
+    "our_area_ha": 13470.5,
+    "pct_diff": 9.8
+  },
+  "sar_confirms_scar": null,
+  "firms": {
+    "ignition_lat": 28.35905,
+    "ignition_lon": -16.43122,
+    "first_detection": "2023-08-16 02:23:00",
+    "last_detection": "2023-08-23 03:32:00",
+    "active_days": 8,
+    "n_detections": 1026,
+    "frp_max_mw": 318.6,
+    "frp_total_mw": 22703.8
+  },
+  "s2_scenes_pre": 6,
+  "s2_scenes_post": 5,
+  "limitations": [
+    "dNBR estimates severity, not a field-surveyed perimeter.",
+    "Single post-fire composite; low-severity edges inflate area vs VHR delineation.",
+    "Trade-wind cloud can leave gaps; masked pixels shown as absent, not guessed.",
+    "S1 cross-check is qualitative confirmation, not an independent area estimate.",
+    "FIRMS points are ~375 m detections; ignition point is first *detected* pixel, not exact origin.",
+    "Protected-area figure is exposure (burn within boundaries), not ecological damage."
+  ],
+  "generated_utc": "2026-07-23T07:55:10.700366Z"
+}
