@@ -3,7 +3,7 @@
 Satellite journalism from open Earth-observation data: burn severity, fire progression,
 and a constrained LLM narrative layer whose figures are checked against the measurements.
 
-Part of [Ground_truth](https://groundtruth-earth.netlify.app/).
+Part of [Ground_truth-earth(satellite journalism)](https://groundtruth-earth.netlify.app/).
 
 ---
 
