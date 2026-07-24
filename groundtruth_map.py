@@ -53,10 +53,26 @@ def build(CONFIG, AOI, PLACES,
 
     print('exporting imagery ...')
     RGB_VIS = {'min': 200, 'max': 3000, 'bands': ['B4', 'B3', 'B2']}
-    URI_PRE  = _png_datauri(_s2_rgb(CONFIG, IMG, CONFIG['pre_start'],  CONFIG['pre_end']),
+
+    def _scene_count(start, end):
+        csplus = ee.ImageCollection(CONFIG['cs_plus_collection'])
+        return int(ee.ImageCollection(CONFIG['s2_collection'])
+                   .filterBounds(IMG).filterDate(start, end)
+                   .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', CONFIG['max_cloud_pct']))
+                   .linkCollection(csplus, [CONFIG['cs_band']]).size().getInfo())
+
+    URI_PRE  = _png_datauri(_s2_rgb(CONFIG, IMG, CONFIG['pre_start'], CONFIG['pre_end']),
                             RGB_VIS, IMG, px, 'before')
-    URI_POST = _png_datauri(_s2_rgb(CONFIG, IMG, CONFIG['post_start'], CONFIG['post_end']),
-                            RGB_VIS, IMG, px, 'after')
+
+    n_post   = _scene_count(CONFIG['post_start'], CONFIG['post_end'])
+    HAS_POST = n_post > 0
+    if HAS_POST:
+        URI_POST = _png_datauri(_s2_rgb(CONFIG, IMG, CONFIG['post_start'], CONFIG['post_end']),
+                                RGB_VIS, IMG, px, 'after')
+    else:
+        URI_POST = ''
+        print('  after     SKIPPED - no post-fire scene in the window.')
+        print('            before/after comparison hidden; pre-fire image only.')
     try:
         if severity is None:
             raise ValueError('no severity computed')
@@ -201,8 +217,8 @@ def build(CONFIG, AOI, PLACES,
       <div class="panel layers"><h2>What you're looking at</h2>
        <label class="lay"><input type="radio" name="view" value="base"> Global satellite only</label>
        <label class="lay"><input type="radio" name="view" value="pre"> + Sentinel-2 before &middot; 10 m</label>
-       <label class="lay"><input type="radio" name="view" value="post"> + Sentinel-2 after &middot; 10 m</label>
-       <label class="lay"><input type="radio" name="view" value="swipe" checked> + Compare before / after</label>
+       <label class="lay" id="optPost"><input type="radio" name="view" value="post"> + Sentinel-2 after &middot; 10 m</label>
+       <label class="lay" id="optSwipe"><input type="radio" name="view" value="swipe" checked> + Compare before / after</label>
        <div class="sec" id="swipeWrap"><label class="rng"><span>&#9664; Before</span><span>After &#9654;</span></label>
         <input type="range" id="swipe" min="0" max="100" value="50">
         <p class="hint">Drag right to reveal the after image.</p></div>
@@ -256,7 +272,7 @@ def build(CONFIG, AOI, PLACES,
     </div>
     <script>
     var RAW="__RAW__", IGN={lng:__IGNLON__,lat:__IGNLAT__};
-    var LON0=__LON0__, LAT0=__LAT0__, HAS_SEV=__HASSEV__;
+    var LON0=__LON0__, LAT0=__LAT0__, HAS_SEV=__HASSEV__, HAS_POST=__HASPOST__;
     var IMGB=L.latLngBounds([[__IS__,__IW__],[__IN__,__IE__]]);
     var AOIB=L.latLngBounds([[__AS__,__AW__],[__AN__,__AE__]]);
     var PLACES=__PLACES__;
@@ -288,7 +304,7 @@ def build(CONFIG, AOI, PLACES,
     L.control.scale({imperial:false,position:'bottomleft'}).addTo(map);
 
     var lyPre =L.imageOverlay(URI_PRE, IMGB,{pane:'pPre'});
-    var lyPost=L.imageOverlay(URI_POST,IMGB,{pane:'pPost'});
+    var lyPost=HAS_POST?L.imageOverlay(URI_POST,IMGB,{pane:'pPost'}):null;
     var lySev =HAS_SEV?L.imageOverlay(URI_SEV,AOIB,{pane:'pSev',opacity:.85}):null;
     if(!lySev){document.getElementById('sevRow').style.display='none';}
 
@@ -320,8 +336,9 @@ def build(CONFIG, AOI, PLACES,
     var divider=document.getElementById('divider');
     function currentMode(){return document.querySelector('input[name=view]:checked').value;}
     function applySwipe(){
+      if(!lyPost||!map.hasLayer(lyPost)){divider.style.display='none';return;}
       var el=lyPost.getElement();
-      if(!el||!map.hasLayer(lyPost)){divider.style.display='none';return;}
+      if(!el){divider.style.display='none';return;}
       var v=+document.getElementById('swipe').value, size=map.getSize();
       var frac=1-v/100;                                  // v=100 -> all AFTER
       var xC=size.x*frac;
@@ -336,33 +353,40 @@ def build(CONFIG, AOI, PLACES,
       divider.style.left=xC+'px';
     }
     function clearClip(){
-      [lyPre,lyPost].forEach(function(l){var e=l.getElement();
+      [lyPre,lyPost].forEach(function(l){if(!l)return; var e=l.getElement();
         if(e){e.style.clipPath='';e.style.webkitClipPath='';}});
       divider.style.display='none';
     }
     function setView(mode){
       if(map.hasLayer(lyPre))map.removeLayer(lyPre);
-      if(map.hasLayer(lyPost))map.removeLayer(lyPost);
+      if(lyPost&&map.hasLayer(lyPost))map.removeLayer(lyPost);
       clearClip();
       document.getElementById('swipeWrap').style.display=(mode==='swipe')?'block':'none';
       if(mode==='pre'){lyPre.addTo(map);}
-      else if(mode==='post'){lyPost.addTo(map);}
-      else if(mode==='swipe'){lyPre.addTo(map);lyPost.addTo(map);setTimeout(applySwipe,80);}
+      else if(mode==='post'&&lyPost){lyPost.addTo(map);}
+      else if(mode==='swipe'&&lyPost){lyPre.addTo(map);lyPost.addTo(map);setTimeout(applySwipe,80);}
+      else if(mode==='swipe'){lyPre.addTo(map);}
     }
     document.querySelectorAll('input[name=view]').forEach(function(r){
       r.onchange=function(){if(r.checked)setView(r.value);};});
     document.getElementById('swipe').oninput=applySwipe;
     map.on('move zoom zoomend moveend resize',function(){
       if(currentMode()==='swipe')applySwipe();});
-    lyPost.on('load add',function(){if(currentMode()==='swipe')setTimeout(applySwipe,20);});
+    if(lyPost) lyPost.on('load add',function(){if(currentMode()==='swipe')setTimeout(applySwipe,20);});
 
     document.getElementById('opacity').oninput=function(e){var o=e.target.value/100;
-     lyPre.setOpacity(o);lyPost.setOpacity(o);
+     lyPre.setOpacity(o); if(lyPost) lyPost.setOpacity(o);
      document.getElementById('opVal').textContent=e.target.value+'%';};
     document.getElementById('lStreet').onchange=function(e){
      if(e.target.checked){labels.addTo(map);}else{map.removeLayer(labels);}
      updatePlaces();};
-    setView('swipe');
+    if(!HAS_POST){
+      document.getElementById('optPost').style.display='none';
+      document.getElementById('optSwipe').style.display='none';
+      document.getElementById('swipeWrap').style.display='none';
+      document.querySelector('input[name=view][value=pre]').checked=true;
+      setView('pre');
+    } else { setView('swipe'); }
 
     /* layers panel toggle - matters when embedded in a narrow article column */
     (function(){
@@ -458,6 +482,7 @@ def build(CONFIG, AOI, PLACES,
      '__RAW__': RAW, '__IGNLON__': str(ign['ignition_lon']), '__IGNLAT__': str(ign['ignition_lat']),
      '__LON0__': str(LON0), '__LAT0__': str(LAT0),
      '__HASSEV__': 'true' if HAS_SEV else 'false',
+     '__HASPOST__': 'true' if HAS_POST else 'false',
      '__PLACES__': json.dumps(PLACES, ensure_ascii=False),
      '__IW__': str(IMG_BBOX[0]), '__IS__': str(IMG_BBOX[1]),
      '__IE__': str(IMG_BBOX[2]), '__IN__': str(IMG_BBOX[3]),
