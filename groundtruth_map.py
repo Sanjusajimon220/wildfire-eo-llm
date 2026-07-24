@@ -168,11 +168,28 @@ def build(CONFIG, AOI, PLACES,
     .leaflet-control-scale{margin-bottom:68px!important;margin-left:266px!important}
     .leaflet-control-zoom{margin-bottom:140px!important;margin-right:16px!important}
     .leaflet-control-scale-line{background:rgba(0,0,0,.5)!important;color:#fff!important;border-color:#7d8798!important}
-    @media(max-width:900px){#leftRail{display:none}.head{left:0;right:0}.leaflet-control-scale{margin-left:12px!important}}
-    @media(max-width:640px){.count{display:none}.clock{top:auto;bottom:118px;right:12px}}
+    #railBtn{position:absolute;left:16px;top:14px;z-index:530;background:var(--panel);
+     border:1px solid var(--line);color:#c3cad6;border-radius:9px;padding:7px 11px;cursor:pointer;
+     font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.06em;display:none}
+    #railBtn:hover{color:#fff;border-color:#48566c}
+    #leftRail.collapsed{display:none}
+    @media(max-width:1000px){
+      #leftRail{width:210px}
+      .head{left:236px;right:16px}
+      .leaflet-control-scale{margin-left:236px!important}
+    }
+    @media(max-width:760px){
+      #railBtn{display:block}
+      #leftRail{top:54px;width:220px}
+      .head{left:0;right:0;padding-top:52px}
+      .leaflet-control-scale{margin-left:12px!important}
+      .clock{top:auto;bottom:118px;right:12px}
+    }
+    @media(max-width:560px){.count{display:none}}
     </style>
     <div class="fig">
      <div id="map"></div><canvas id="glow"></canvas><div id="divider"></div>
+     <button id="railBtn" aria-expanded="true" aria-controls="leftRail">LAYERS</button>
 
      <div class="head"><p class="eyebrow">Groundtruth &middot; Satellite journalism</p>
       <h1>How the __NAME__ fire spread, day by day</h1>
@@ -346,6 +363,18 @@ def build(CONFIG, AOI, PLACES,
      if(e.target.checked){labels.addTo(map);}else{map.removeLayer(labels);}
      updatePlaces();};
     setView('swipe');
+
+    /* layers panel toggle - matters when embedded in a narrow article column */
+    (function(){
+      var rail = document.getElementById('leftRail');
+      var btn  = document.getElementById('railBtn');
+      if (window.innerWidth <= 760) rail.classList.add('collapsed');
+      btn.onclick = function(){
+        var hidden = rail.classList.toggle('collapsed');
+        btn.setAttribute('aria-expanded', String(!hidden));
+        btn.textContent = hidden ? 'LAYERS' : 'CLOSE';
+      };
+    })();
 
     /* ---- fire glow ---- */
     var cv=document.getElementById('glow'),ctx=cv.getContext('2d');
