@@ -7,23 +7,23 @@
     :root{--paper:#0f1218;--ink:#f2f4f8;--sub:#9aa4b4;--line:#2a3240;--hot:#ef6a2b;--panel:rgba(16,20,27,.95)}
     *{box-sizing:border-box}html,body{margin:0;height:100%}
     body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-    .fig{position:fixed;inset:0}#map{position:absolute;inset:0;background:#0b0e13}
+    .fig{position:absolute;inset:0;overflow:hidden}#map{position:absolute;inset:0;background:#0b0e13;z-index:1}
     #glow{position:absolute;inset:0;pointer-events:none;z-index:410}
     #divider{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,255,255,.9);
      box-shadow:0 0 8px rgba(0,0,0,.7);z-index:406;pointer-events:none;display:none}
     #divider:after{content:'';position:absolute;top:50%;left:50%;width:28px;height:28px;margin:-14px 0 0 -14px;
      border-radius:50%;background:rgba(255,255,255,.92);box-shadow:0 0 10px rgba(0,0,0,.6)}
-    .head{position:absolute;top:0;left:270px;right:190px;z-index:500;padding:14px 18px 26px;pointer-events:none;
+    .head{position:absolute;top:0;left:270px;right:170px;z-index:1100;padding:14px 18px 26px;pointer-events:none;
      background:linear-gradient(180deg,rgba(9,12,17,.9),rgba(9,12,17,.45) 60%,transparent)}
     .eyebrow{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--hot);margin:0 0 5px}
     h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(17px,2.2vw,24px);line-height:1.12;margin:0 0 6px}
     .dek{font-size:12.5px;line-height:1.5;color:#c3cad6;margin:0;max-width:62ch}.dek b{color:#fff}
-    .clock{position:absolute;top:12px;right:16px;z-index:520;text-align:right;background:var(--panel);
+    .clock{position:absolute;top:12px;right:16px;z-index:1150;text-align:right;background:var(--panel);
      border:1px solid var(--line);border-radius:11px;padding:9px 13px;pointer-events:none}
     .clock .date{font-family:"Space Mono",monospace;font-weight:700;font-size:clamp(15px,2vw,21px)}
     .clock .time{font-family:"Space Mono",monospace;font-size:11px;color:var(--sub)}
     .clock .day{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--hot);margin-top:5px;font-weight:700}
-    #leftRail{position:absolute;left:16px;top:14px;bottom:140px;z-index:500;width:238px;
+    #leftRail{position:absolute;left:12px;top:12px;bottom:132px;z-index:1200;width:min(238px,42vw);
      display:flex;flex-direction:column;gap:8px;overflow-y:auto;padding-right:4px}
     #leftRail::-webkit-scrollbar{width:6px}
     #leftRail::-webkit-scrollbar-thumb{background:#2f3949;border-radius:3px}
@@ -49,7 +49,7 @@
     .meta b{color:#c3cad6;font-weight:400}
     .valid{display:flex;justify-content:space-between;font-size:11px;color:#c3cad6;margin-top:6px;font-family:Inter,sans-serif}
     .valid b{color:#fff}.ok{color:#7ddc8f}
-    .ctl{position:absolute;left:0;right:0;bottom:0;z-index:510;display:flex;align-items:center;gap:12px;padding:13px 18px 15px;
+    .ctl{position:absolute;left:0;right:0;bottom:0;z-index:1150;display:flex;align-items:center;gap:12px;padding:13px 18px 15px;
      background:linear-gradient(0deg,rgba(9,12,17,.95),rgba(9,12,17,.6) 65%,transparent)}
     button.play{flex:none;width:43px;height:43px;border-radius:50%;border:none;cursor:pointer;background:var(--hot);color:#140800;
      display:grid;place-items:center;box-shadow:0 0 18px rgba(239,106,43,.5)}
@@ -66,11 +66,13 @@
     .leaflet-control-scale{margin-bottom:68px!important;margin-left:266px!important}
     .leaflet-control-zoom{margin-bottom:140px!important;margin-right:16px!important}
     .leaflet-control-scale-line{background:rgba(0,0,0,.5)!important;color:#fff!important;border-color:#7d8798!important}
-    @media(max-width:900px){#leftRail{display:none}.head{left:0;right:0}.leaflet-control-scale{margin-left:12px!important}}
+    #railBtn{position:absolute;left:16px;top:14px;z-index:1210;background:var(--panel);border:1px solid var(--line);color:#c3cad6;border-radius:9px;padding:7px 11px;cursor:pointer;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.06em;display:none}#railBtn:hover{color:#fff;border-color:#48566c}#leftRail.collapsed{display:none}@media(max-width:1000px){#leftRail{width:210px}.head{left:236px;right:16px}}@media(max-width:560px){#railBtn{display:block}#leftRail{top:52px;width:min(240px,60vw)}.head{left:0;right:0;padding-top:52px;padding-left:64px}.leaflet-control-scale{margin-left:12px!important}}
     @media(max-width:640px){.count{display:none}.clock{top:auto;bottom:118px;right:12px}}
-    </style>
+    #fsBtn{position:absolute;right:16px;bottom:150px;z-index:1210;width:38px;height:38px;background:rgba(16,20,27,.95);border:1px solid #2a3240;color:#c3cad6;border-radius:9px;cursor:pointer;display:grid;place-items:center;padding:0}#fsBtn:hover{color:#fff;border-color:#48566c}#fsBtn svg{width:17px;height:17px}</style>
     <div class="fig">
      <div id="map"></div><canvas id="glow"></canvas><div id="divider"></div>
+<button id="railBtn" aria-expanded="true" aria-controls="leftRail">LAYERS</button>
+<button id="fsBtn" title="Fullscreen" aria-label="Toggle fullscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
 
      <div class="head"><p class="eyebrow">Groundtruth &middot; Satellite journalism</p>
       <h1>How the Tenerife (Arafo-Candelaria) fire spread, day by day</h1>
@@ -157,7 +159,7 @@
      p.c=A.map(function(v,j){return Math.round(v+(B[j]-v)*k);});
      p.sz=5+9*Math.sqrt(Math.min(1,p.frp/FRPMAX));});
 
-    var map=L.map('map',{zoomControl:true,attributionControl:false,minZoom:8});
+    var map=L.map('map',{zoomControl:false,attributionControl:false,minZoom:8});
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19}).addTo(map);
     map.createPane('pPre');map.createPane('pPost');map.createPane('pSev');map.createPane('pLab');
     map.getPane('pPre').style.zIndex=250;
@@ -166,6 +168,7 @@
     map.getPane('pLab').style.zIndex=390;map.getPane('pLab').style.pointerEvents='none';
     var labels=L.tileLayer('https://{s}.basemap.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',
      {maxZoom:19,subdomains:'abcd',pane:'pLab'}).addTo(map);
+    L.control.zoom({position:'topright'}).addTo(map);
     L.control.scale({imperial:false,position:'bottomleft'}).addTo(map);
 
     var lyPre =L.imageOverlay(URI_PRE, IMGB,{pane:'pPre'});
@@ -244,6 +247,10 @@
      if(e.target.checked){labels.addTo(map);}else{map.removeLayer(labels);}
      updatePlaces();};
     setView('swipe');
+(function(){var rail=document.getElementById('leftRail'),btn=document.getElementById('railBtn');
+if(!btn)return; if(window.innerWidth<=560)rail.classList.add('collapsed');
+btn.onclick=function(){var hid=rail.classList.toggle('collapsed');
+btn.setAttribute('aria-expanded',String(!hid));btn.textContent=hid?'LAYERS':'CLOSE';};})();
 
     /* ---- fire glow ---- */
     var cv=document.getElementById('glow'),ctx=cv.getContext('2d');
@@ -314,4 +321,13 @@
     $('fit').onclick=fitAll;
     $('scrub').oninput=function(e){ensureFireOn();setPlay(false);clock=tMin+(e.target.value/1000)*span;ui();};
     map.on('move zoom',function(){if(!playing)draw();});
-    </script>
+    
+(function(){var fs=document.getElementById('fsBtn'),fig=document.querySelector('.fig');
+if(!fs)return;
+fs.onclick=function(){var d=document;
+if(!d.fullscreenElement&&!d.webkitFullscreenElement){(fig.requestFullscreen||fig.webkitRequestFullscreen).call(fig);}
+else{(d.exitFullscreen||d.webkitExitFullscreen).call(d);}
+setTimeout(function(){map.invalidateSize();if(typeof currentMode==='function'&&currentMode()==='swipe')applySwipe();},250);};
+['fullscreenchange','webkitfullscreenchange'].forEach(function(e){document.addEventListener(e,function(){
+setTimeout(function(){map.invalidateSize();if(typeof currentMode==='function'&&currentMode()==='swipe')applySwipe();},250);});});})();
+</script>

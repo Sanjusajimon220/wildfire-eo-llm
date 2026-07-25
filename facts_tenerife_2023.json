@@ -51,8 +51,8 @@
   "protected_share_pct": 78.9,
   "protected_areas": [
     "El Teide",
-    "Montaña de los Frailes",
-    "Barranco de Fasnia y Güímar",
+    "Monta├▒a de los Frailes",
+    "Barranco de Fasnia y G├╝├¡mar",
     "Las Lagunetas",
     "Siete Lomas",
     "La Resbala",
@@ -88,5 +88,5 @@
     "FIRMS points are ~375 m detections; ignition point is first *detected* pixel, not exact origin.",
     "Protected-area figure is exposure (burn within boundaries), not ecological damage."
   ],
-  "generated_utc": "2026-07-23T07:55:10.700366Z"
+  "generated_utc": "2026-07-22T18:48:39.969950Z"
 }

@@ -1,0 +1,48 @@
+{
+  "fire_id": "la_mierla_2026",
+  "fire_name": "La Mierla, Sierra Norte de Guadalajara",
+  "region": "Castilla-La Mancha, Spain",
+  "year": 2026,
+  "ignition_date": "2026-07-16",
+  "containment_date": null,
+  "status": "active at time of measurement",
+  "pre_fire_window": [
+    "2026-06-05",
+    "2026-07-15"
+  ],
+  "post_fire_window": [
+    "2026-08-10",
+    "2026-09-10"
+  ],
+  "severity_measured": false,
+  "sar_inside_db": 0.473,
+  "sar_outside_db": 0.277,
+  "sar_delta_db": 0.196,
+  "sar_acquisition_date": "2026-07-18",
+  "sar_orbit": 103,
+  "sar_pass": "ASCENDING",
+  "sar_scenes_pre": 10,
+  "sar_scenes_post": 1,
+  "sar_confirms_scar": false,
+  "official_reference": {
+    "source": "Copernicus EMS EMSR898",
+    "area_ha": null
+  },
+  "firms": {
+    "ignition_lat": 40.94775,
+    "ignition_lon": -3.22391,
+    "first_detection": "2026-07-17 02:41:00",
+    "last_detection": "2026-07-23 13:53:00",
+    "active_days": 7,
+    "n_detections": 1525,
+    "frp_max_mw": 412.5,
+    "frp_total_mw": 38042.3,
+    "max_spread_km": 37.8,
+    "sensor_resolution_m": 375,
+    "km_to_named_place": 1.2,
+    "named_place": "La Mierla",
+    "cluster_share_pct": 99.6
+  },
+  "s2_scenes_pre": 45,
+  "s2_scenes_post": 0
+}
